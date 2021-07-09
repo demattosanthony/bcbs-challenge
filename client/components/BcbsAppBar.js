@@ -4,24 +4,22 @@ import { StyleSheet, Image } from "react-native";
 
 export default function BcbsAppBar() {
   return (
-    <Appbar.Header style={styles.appBarContainer}>
-      <Appbar.Content
-        title={
-          <Image source={require("../assets/logo.png")} style={styles.logo} />
-        }
-      />
-    </Appbar.Header>
+    <Appbar style={styles.container}>
+      <Image source={require("../assets/logo.png")} style={styles.logo} />
+    </Appbar>
   );
 }
 
 const styles = StyleSheet.create({
-  appBarContainer: {
+  container: {
+    height: 105,
     backgroundColor: "#044661",
+    justifyContent: "center",
+    alignItems: "center",
   },
   logo: {
     width: 300,
-    height: 40,
     resizeMode: "contain",
-    paddingBottom: 20,
+    marginTop: 20,
   },
 });
