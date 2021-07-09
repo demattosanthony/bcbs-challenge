@@ -20,8 +20,17 @@ const fs = require("fs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: "50MB" }));
 
+
+// Endpoint recieves image and comment 
+// Will write image to out.png file to verify getting image correctly
+// Send post request to fictious url 
+// Send response 200 if image and comment are present, 400 if not
 app.post("/", (req, res) => {
   if (req.body.comment !== "" && typeof req.body.imgsource !== "undefined") {
+    //verify getting image correctly
+    fs.writeFile("./out.png", req.body.imgsource, "base64", (err) => {
+      if (err) throw err;
+    });
     fetch("https://imagehasbeenverified.example.endpoint", {
       method: "POST",
       body: fs.readFile(req.body.imgsource, "base64", function (err, data) {

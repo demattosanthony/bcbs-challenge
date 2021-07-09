@@ -11,11 +11,13 @@ import {
 import { setPosts } from "../store/features/postSlice";
 import { useDispatch } from "react-redux";
 import uuid from "uuid";
+import MoreInputDialog from "./MoreInputDialog";
 
 export default function SelectImage() {
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
   const [comment, setComment] = useState("");
+  const [showInputDialog, setShowInputDialog] = useState(false);
 
   // Request Permissions to acces camera role in order to select image
   useEffect(() => {
@@ -45,6 +47,10 @@ export default function SelectImage() {
     }
   };
 
+  /* Function to send image and comment to node.js backend,
+     if response returns 400 then either image or comment are not 
+     present (or can't access endpoint) -> Show Alert. 
+     Resets Comment and image to empty after response 200. */
   const uploadPost = async () => {
     const res = await fetch("http://localhost:3000/", {
       method: "POST",
@@ -68,8 +74,7 @@ export default function SelectImage() {
       setComment("");
       setImage("");
     } else {
-      console.log("status bad");
-      // setShowInputDialog(true);
+      setShowInputDialog(true);
     }
   };
 
@@ -120,6 +125,11 @@ export default function SelectImage() {
       >
         Create Post
       </Button>
+
+      <MoreInputDialog
+        visible={showInputDialog}
+        hideDialog={() => setShowInputDialog(false)}
+      />
     </View>
   );
 }

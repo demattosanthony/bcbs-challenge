@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import BcbsAppBar from "../components/BcbsAppBar";
 import PostInput from "../components/PostInput";
 import PostList from "../components/PostList";
+
 export default function HomeScreen() {
   return (
     <View style={{ flex: 1 }}>

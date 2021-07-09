@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Each Post witll contain a comment and image
+// Each Post will contain a comment and image
 const initalState = {
   posts: [],
 };
