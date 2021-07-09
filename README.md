@@ -31,6 +31,8 @@ Run the instructions inside `client/` directory:
 2. `npm start`
 3. `Select i for IOS or a for Android`
 
+Note: Maker sure to change "host" variable at the top of "components/PostInput.js" file to your IP Address
+
 ## Future Imporvements
 
 - Deleting of a post

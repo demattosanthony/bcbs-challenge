@@ -13,6 +13,8 @@ import { useDispatch } from "react-redux";
 import uuid from "uuid";
 import MoreInputDialog from "./MoreInputDialog";
 
+const host = "http://192.168.1.99:3000/";
+
 export default function SelectImage() {
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
@@ -54,7 +56,7 @@ export default function SelectImage() {
   const uploadPost = async () => {
     //Had to set url to ip address in order to work on android
     //just specifing localhost worked only on IOS
-    const res = await fetch("http://192.168.1.99:3000/", {
+    const res = await fetch(host, {
       method: "POST",
       headers: {
         Accept: "application/json",
