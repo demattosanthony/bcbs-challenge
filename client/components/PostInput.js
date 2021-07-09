@@ -8,8 +8,12 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+import { setPosts } from "../store/features/postSlice";
+import { useDispatch } from "react-redux";
+import uuid from "uuid";
 
 export default function SelectImage() {
+  const dispatch = useDispatch();
   const [image, setImage] = useState("");
   const [comment, setComment] = useState("");
 
@@ -41,6 +45,18 @@ export default function SelectImage() {
     }
   };
 
+  const uploadPost = async () => {
+    dispatch(
+      setPosts({
+        id: uuid(),
+        comment: comment,
+        image: image,
+      })
+    );
+    setComment("");
+    setImage("");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -56,6 +72,7 @@ export default function SelectImage() {
             },
           }}
         />
+        
         {image === "" ? (
           <IconButton
             icon="camera"
@@ -66,7 +83,7 @@ export default function SelectImage() {
         ) : (
           <TouchableOpacity onPress={pickImage}>
             <Image
-              source={{ uri: image.uri }}
+              source={image}
               style={{
                 height: 50,
                 width: 50,
@@ -82,7 +99,7 @@ export default function SelectImage() {
       <Button
         mode="contained"
         color="#044661"
-        onPress={() => console.log("pressed")}
+        onPress={uploadPost}
         style={styles.createPostBtn}
       >
         Create Post
