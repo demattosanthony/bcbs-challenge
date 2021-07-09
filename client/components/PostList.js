@@ -12,7 +12,7 @@ export default function PostList() {
     <View style={{ flex: 1 }}>
       <ScrollView>
         <List.Subheader>Post List</List.Subheader>
-        {posts &&
+        {posts.length !== 0 ? (
           posts.map((post) => {
             // console.log(post);
             return (
@@ -20,8 +20,8 @@ export default function PostList() {
                 <Image
                   source={post.image}
                   style={{
-                    width: 75,
-                    height: 75,
+                    width: 50,
+                    height: 50,
                     borderRadius: 4,
                     marginLeft: 10,
                   }}
@@ -29,7 +29,10 @@ export default function PostList() {
                 <Text style={styles.comment}>{post.comment}</Text>
               </View>
             );
-          })}
+          })
+        ) : (
+          <Text style={styles.noPosts}>No Posts Created </Text>
+        )}
       </ScrollView>
     </View>
   );
@@ -47,8 +50,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     flex: 1,
   },
-  deleteBtn: {
-    fontSize: 22,
-    padding: 8,
+  noPosts: {
+    fontSize: 35,
+    justifyContent: "center",
+    marginTop: 50,
+    textAlign: "center",
   },
 });

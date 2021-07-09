@@ -46,15 +46,31 @@ export default function SelectImage() {
   };
 
   const uploadPost = async () => {
-    dispatch(
-      setPosts({
-        id: uuid(),
+    const res = await fetch("http://localhost:3000/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        imgsource: image.base64,
         comment: comment,
-        image: image,
-      })
-    );
-    setComment("");
-    setImage("");
+      }),
+    });
+    if (res.status == 200) {
+      dispatch(
+        setPosts({
+          id: uuid(),
+          comment: comment,
+          image: image,
+        })
+      );
+      setComment("");
+      setImage("");
+    } else {
+      console.log("status bad");
+      // setShowInputDialog(true);
+    }
   };
 
   return (
@@ -72,7 +88,7 @@ export default function SelectImage() {
             },
           }}
         />
-        
+
         {image === "" ? (
           <IconButton
             icon="camera"
