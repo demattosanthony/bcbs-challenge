@@ -52,7 +52,9 @@ export default function SelectImage() {
      present (or can't access endpoint) -> Show Alert. 
      Resets Comment and image to empty after response 200. */
   const uploadPost = async () => {
-    const res = await fetch("http://localhost:3000/", {
+    //Had to set url to ip address in order to work on android
+    //just specifing localhost worked only on IOS
+    const res = await fetch("http://192.168.1.99:3000/", {
       method: "POST",
       headers: {
         Accept: "application/json",

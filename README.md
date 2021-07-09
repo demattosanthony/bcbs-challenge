@@ -35,3 +35,8 @@ Run the instructions inside `client/` directory:
 
 - Deleting of a post
 - Actually saving of a post either inside database or local storage
+
+
+## App Preview
+
+![](appPreview.png)
