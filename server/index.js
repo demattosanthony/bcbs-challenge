@@ -13,17 +13,14 @@ How to run:
 const express = require("express");
 const app = express();
 const port = 3000;
-const bodyParser = require("body-parser");
 const fetch = require("node-fetch");
 const fs = require("fs");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: "50MB" }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json({ limit: "50MB" }));
-
-
-// Endpoint recieves image and comment 
+// Endpoint recieves image and comment
 // Will write image to out.png file to verify getting image correctly
-// Send post request to fictious url 
+// Send post request to fictious url
 // Send response 200 if image and comment are present, 400 if not
 app.post("/", (req, res) => {
   if (req.body.comment !== "" && typeof req.body.imgsource !== "undefined") {
@@ -31,14 +28,13 @@ app.post("/", (req, res) => {
     fs.writeFile("./out.png", req.body.imgsource, "base64", (err) => {
       if (err) throw err;
     });
+
+    // post image to ficticous url
     fetch("https://imagehasbeenverified.example.endpoint", {
       method: "POST",
-      body: fs.readFile(req.body.imgsource, "base64", function (err, data) {
-        if (err) {
-          // throw err;
-        }
-      }),
-    });
+      body: req.body.imgsource,
+    }).catch((e) => console.log(`Error posting image to url: ${e}`));
+
     res.status(200).send({ message: "Success" });
   } else {
     res.status(400).send({ message: "Failure" });
